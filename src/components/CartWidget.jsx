@@ -1,5 +1,3 @@
-import React from "react";
-
 const CartWidget = () => {
     return (
         <div style={{ display: 'flex', alignItems: 'center', gap: '5px'}}>
@@ -10,4 +8,3 @@ const CartWidget = () => {
 };
 
 export default CartWidget;
-
