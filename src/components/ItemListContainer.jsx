@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemList from './ItemList';
@@ -28,6 +29,15 @@ const ItemListContainer = () => {
     }
 
     return <ItemList items={items} />;
+=======
+/* eslint-disable react/prop-types */
+const ItemListContainer = ({ greeting }) => {
+    return (
+        <div style={{ padding: '20px', textAlign: 'center' }}>
+        <h2>{greeting}</h2>
+        </div>
+    );
+>>>>>>> ac5c52b9098e684847bad0287260148a949ee02f
 };
 
 export default ItemListContainer;
