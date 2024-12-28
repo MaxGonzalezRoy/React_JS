@@ -45,7 +45,8 @@ Este proyecto es una aplicación web desarrollada con React+Vite que simula una 
   - División entre **contenedores** (manejo de estado) y **presentación** (estructura visual).
 
 ## **Contacto**
-Desarrollado por [MaxGonzalezRoy](https://github.com/MaxGonzalezRoy).  
+Desarrollado por [MaxGonzalezRoy](https://github.com/MaxGonzalezRoy).
+Proyecto (https://github.com/MaxGonzalezRoy/React_JS.git).
 Último commit: `"NavegaLasRutas+Gonzalez"`
 
 Saludos,  
