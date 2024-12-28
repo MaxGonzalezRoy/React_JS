@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Col, Card } from 'react-bootstrap';
 
 const Item = ({ item }) => {
-    // Validar si `item` y sus propiedades existen
     if (!item || !item.image || !item.name || !item.price) {
         return (
             <Col lg={4}>

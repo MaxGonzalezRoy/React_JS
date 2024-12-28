@@ -4,27 +4,26 @@ import ItemDetail from './ItemDetail';
 import { fetchData } from './api';
 
 const ItemDetailContainer = () => {
-    const [item, setItem] = useState(null); // Estado para el producto
-    const [loading, setLoading] = useState(true); // Estado para la carga
-    const { id } = useParams(); // Obtén el ID del producto desde la URL
+    const [item, setItem] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const { id } = useParams();
 
     useEffect(() => {
         const fetchItemDetails = async () => {
             try {
-                setLoading(true); // Indica que está cargando
-                const data = await fetchData(`/products/${id}`); // Llama a la API
-                setItem(data); // Actualiza el estado con los detalles del producto
+                setLoading(true);
+                const data = await fetchData(`/products/${id}`);
+                setItem(data);
             } catch (error) {
                 console.error('Error al cargar los detalles del producto:', error);
             } finally {
-                setLoading(false); // Finaliza el estado de carga
+                setLoading(false);
             }
         };
 
         fetchItemDetails();
     }, [id]);
 
-    // Renderizado condicional para los diferentes estados
     if (loading) {
         return <p>Cargando detalles del producto...</p>;
     }
@@ -36,7 +35,7 @@ const ItemDetailContainer = () => {
     return (
         <div>
             <h2>Detalles del Producto</h2>
-            <ItemDetail {...item} /> {/* Renderiza el componente de detalles */}
+            <ItemDetail {...item} /> {}
         </div>
     );
 };

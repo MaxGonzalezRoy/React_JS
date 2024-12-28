@@ -8,7 +8,7 @@ const ItemDetail = ({ item }) => {
         <img src={item?.thumbnail} alt={item?.title} style={{ width: '300px' }} />
         <p>Descripción: {item?.description}</p>
         <p>Precio: ${item?.price}</p>
-      {/* Agregar contador para el carrito */}
+      {}
         <ItemCount stock={item?.stock} initial={1} onAdd={(quantity) => console.log(`Agregaste ${quantity} unidades al carrito`)} />
     </div>
     );

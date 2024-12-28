@@ -1,6 +1,5 @@
 export const BASE_URL = 'https://dummyjson.com';
 
-// Función genérica para realizar solicitudes a la API
 export const fetchData = async (endpoint = '', options = {}) => {
     try {
         const response = await fetch(`${BASE_URL}${endpoint}`, options);
@@ -16,7 +15,6 @@ export const fetchData = async (endpoint = '', options = {}) => {
     }
 };
 
-// Función para obtener datos de un endpoint específico
 export const getData = async (endpoint) => {
     try {
         const data = await fetchData(endpoint);
@@ -28,7 +26,6 @@ export const getData = async (endpoint) => {
     }
 };
 
-// Función para enviar datos a un endpoint específico
 export const postData = async (endpoint, body) => {
     try {
         const data = await fetchData(endpoint, {
@@ -46,7 +43,6 @@ export const postData = async (endpoint, body) => {
     }
 };
 
-// Ejemplo de uso: Obtención de productos
 (async () => {
     try {
         const products = await getData('/products');
@@ -55,7 +51,6 @@ export const postData = async (endpoint, body) => {
         console.error('Error al obtener productos:', error);
     }
 
-    // Ejemplo de uso: Envío de un producto nuevo
     try {
         const newProduct = {
             title: 'Producto de prueba',
