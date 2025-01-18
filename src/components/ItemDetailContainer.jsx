@@ -1,43 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import ItemDetail from './ItemDetail';
-import { fetchData } from './api';
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase/config";
 
-const ItemDetailContainer = () => {
-    const [item, setItem] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const { id } = useParams();
+const getProductById = async (id) => {
+    const docRef = doc(db, "Products", id);
+    const docSnap = await getDoc(docRef);
 
-    useEffect(() => {
-        const fetchItemDetails = async () => {
-            try {
-                setLoading(true);
-                const data = await fetchData(`/products/${id}`);
-                setItem(data);
-            } catch (error) {
-                console.error('Error al cargar los detalles del producto:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchItemDetails();
-    }, [id]);
-
-    if (loading) {
-        return <p>Cargando detalles del producto...</p>;
+    if (docSnap.exists()) {
+        return { id: docSnap.id, ...docSnap.data() };
+    } else {
+        console.error("No such document!");
+        return null;
     }
-
-    if (!item) {
-        return <p>No se encontró el producto.</p>;
-    }
-
-    return (
-        <div>
-            <h2>Detalles del Producto</h2>
-            <ItemDetail {...item} /> {}
-        </div>
-    );
-};
-
-export default ItemDetailContainer;
+}

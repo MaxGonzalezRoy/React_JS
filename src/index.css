@@ -1,0 +1,81 @@
+/* Estilos globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Asegura que el padding y el border no afecten al tamaño de los elementos */
+}
+
+body {
+    font-family: 'Arial', sans-serif; /* Fuente predeterminada para todo el sitio */
+    background-color: #f8f9fa; /* Color de fondo general */
+    color: #333; /* Color de texto general */
+    line-height: 1.6; /* Espaciado entre líneas */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold; /* Poner en negrita los encabezados */
+    color: #333; /* Color para los títulos */
+}
+
+p {
+    color: #555; /* Color de texto de los párrafos */
+    font-size: 1rem;
+}
+
+a {
+    color: #007bff; /* Color de enlaces */
+    text-decoration: none; /* Eliminar subrayado por defecto */
+}
+
+a:hover {
+    text-decoration: underline; /* Subrayado cuando el enlace es hover */
+}
+
+ul, ol {
+    padding-left: 20px; /* Espaciado a la izquierda de listas */
+}
+
+  /* Estilos para el contenedor principal */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+  /* Ajustes para los botones */
+button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+  /* Estilos de flexbox para organizar los elementos */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.col-md-4 {
+    flex: 1 1 30%;
+    margin: 10px;
+}
+
+  /* Ajuste responsivo */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .col-md-4 {
+        flex: 1 1 100%;
+    }
+}

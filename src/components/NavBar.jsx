@@ -1,17 +1,21 @@
-import CartWidget from './CartWidget';
+import { Link } from 'react-router-dom';
 
-const NavBar = () => {
+function Navbar() {
     return (
-        <nav style={{ width: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', border: '10px', paddingLeft: '50px', paddingRight: '30px', background: '#D1FDDD', color: '#443856'}}>
-        <h1>Hiper Tiendita</h1>
-        <ul style={{ display: 'flex', listStyle: 'none', gap: '55px', color: '#443856' }}>
-            <li ><a href="#home" >Inicio</a></li>
-            <li><a href="#products">Productos</a></li>
-            <li><a href="#about">Acerda de</a></li>
-        </ul>
-        <CartWidget/>
-        </nav>
+        <nav>
+            <ul>
+                <li>
+                    <Link to="/">Inicio</Link>
+                </li>
+                <li>
+                    <Link to="/cart">Carrito</Link>
+                </li>
+                <li>
+                    <Link to="/about">Acerca de</Link>
+                </li>
+            </ul>
+    </nav>
     );
-};
+}
 
-export default NavBar;
+export default Navbar;
