@@ -1,25 +1,64 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import React, { useState, useEffect } from 'react';
+import NavBar from './components/NavBar';
 import ItemList from './components/ItemList';
-import Cart from './components/Cart';
-import About from './components/About'; // Asegúrate de tener este componente
+import Filters from './components/Filters';
+import { getProducts } from './firebase/db';
 import { CartProvider } from './context/CartContext';
 
 function App() {
-    return (
-        <BrowserRouter>
-            <CartProvider>
-                <Navbar />
-                    <h1>Mi Tienda</h1>
-                <Routes> {/* Usar Routes en vez de Switch para react-router-dom v6 */}
-                    <Route path="/" element={<ItemList />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/about" element={<About />} /> {/* Agregar ruta a About */}
-                </Routes>
-            </CartProvider>
-        </BrowserRouter>
-    );
+  const [allProducts, setAllProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const productsData = await getProducts();
+        setAllProducts(productsData);
+        setFilteredProducts(productsData); // Inicialmente mostrar todos los productos
+      } catch (error) {
+        console.error("Error al obtener productos:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []); // Se ejecuta solo una vez al montar el componente
+
+  // Lógica para filtrar productos
+  const handleFilter = (filters) => {
+    let filtered = allProducts;
+
+    if (filters.category) {
+      filtered = filtered.filter((product) => product.category === filters.category);
+    }
+    if (filters.brand) {
+      filtered = filtered.filter((product) => product.brand === filters.brand);
+    }
+    if (filters.price) {
+      filtered = filtered.filter((product) => {
+        if (filters.price === '0-100') return product.price <= 100;
+        if (filters.price === '100-500') return product.price > 100 && product.price <= 500;
+        if (filters.price === '500-1000') return product.price > 500 && product.price <= 1000;
+        if (filters.price === '1000+') return product.price > 1000;
+        return true;
+      });
+    }
+    if (filters.stock) {
+      filtered = filtered.filter((product) => (filters.stock === 'in-stock' ? product.stock > 0 : product.stock === 0));
+    }
+
+    setFilteredProducts(filtered);
+  };
+
+  return (
+    <CartProvider>
+      <div>
+        <NavBar />
+        <h1>Mi Tienda</h1>
+        <Filters onFilter={handleFilter} />
+        <ItemList products={filteredProducts} />
+      </div>
+    </CartProvider>
+  );
 }
 
 export default App;
