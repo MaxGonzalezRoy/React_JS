@@ -1,81 +1,173 @@
-/* Estilos globales */
+/* Reset de márgenes y paddings */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Asegura que el padding y el border no afecten al tamaño de los elementos */
+    box-sizing: border-box;
 }
 
+  /* Establecemos una fuente básica y limpia */
 body {
-    font-family: 'Arial', sans-serif; /* Fuente predeterminada para todo el sitio */
-    background-color: #f8f9fa; /* Color de fondo general */
-    color: #333; /* Color de texto general */
-    line-height: 1.6; /* Espaciado entre líneas */
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Fondo suave */
+    color: #333; /* Color de texto oscuro */
+    line-height: 1.6;
+    font-size: 16px;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-weight: bold; /* Poner en negrita los encabezados */
-    color: #333; /* Color para los títulos */
-}
-
-p {
-    color: #555; /* Color de texto de los párrafos */
-    font-size: 1rem;
-}
-
-a {
-    color: #007bff; /* Color de enlaces */
-    text-decoration: none; /* Eliminar subrayado por defecto */
-}
-
-a:hover {
-    text-decoration: underline; /* Subrayado cuando el enlace es hover */
-}
-
-ul, ol {
-    padding-left: 20px; /* Espaciado a la izquierda de listas */
-}
-
-  /* Estilos para el contenedor principal */
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+  /* Fondo y separación para la raíz */
+#root {
     padding: 20px;
 }
 
-  /* Ajustes para los botones */
+  /* Ajustes a las listas y los elementos de navegación */
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+  /* Estilo básico para la barra de navegación */
+nav {
+    background-color: #007bff; /* Azul fuerte */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+  /* Estilo para los encabezados */
+h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+  /* Contenedores para los productos */
+.item-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.item-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.item-card:hover {
+    transform: translateY(-5px);
+}
+
+.item-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.item-card .item-info {
+    padding: 15px;
+}
+
+.item-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.item-card p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.item-card .price {
+    font-size: 1.2rem;
+    color: #007bff;
+    font-weight: bold;
+}
+
+  /* Estilos para el carrito */
+.cart-container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+}
+
+.cart-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.cart-item .item-info {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.cart-item .item-info h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.cart-item .item-info p {
+    font-size: 1rem;
+    color: #666;
+}
+
+.cart-item .item-info .price {
+    font-weight: bold;
+    color: #007bff;
+}
+
+  /* Estilos para los botones */
 button {
-    cursor: pointer;
     background-color: #007bff;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease-in-out;
 }
 
 button:hover {
     background-color: #0056b3;
-}
-
-  /* Estilos de flexbox para organizar los elementos */
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.col-md-4 {
-    flex: 1 1 30%;
-    margin: 10px;
-}
-
-  /* Ajuste responsivo */
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
-
-    .col-md-4 {
-        flex: 1 1 100%;
-    }
 }
