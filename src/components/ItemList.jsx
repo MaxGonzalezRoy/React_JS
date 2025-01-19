@@ -38,8 +38,6 @@ const ItemList = () => {
     return (
         <div>
             <h2>Lista de Productos</h2>
-
-            {/* Filtro de categorías */}
             <div className="filter-container">
                 <label htmlFor="categoryFilter">Filtrar por Categoría:</label>
                 <select id="categoryFilter" onChange={handleCategoryChange}>
