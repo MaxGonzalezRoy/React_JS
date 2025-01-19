@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from './components/NavBar';
-import ItemList from './components/ItemList';
-import Filters from './components/Filters';
 import { getProducts } from './firebase/db';
 import { CartProvider } from './context/CartContext';
+import { Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import About from './components/About';
+import Cart from './components/Cart';
 
 function App() {
   const [allProducts, setAllProducts] = useState([]);
@@ -21,7 +23,7 @@ function App() {
     };
 
     fetchProducts();
-  }, []); // Se ejecuta solo una vez al montar el componente
+  }, []);
 
   // Lógica para filtrar productos
   const handleFilter = (filters) => {
@@ -51,12 +53,15 @@ function App() {
 
   return (
     <CartProvider>
-      <div>
-        <NavBar />
-        <h1>Tienda React JS</h1>
-        <Filters onFilter={handleFilter} />
-        <ItemList products={filteredProducts} />
-      </div>
+      <NavBar />
+      <Routes>
+        <Route
+          path="/"
+          element={<Home products={filteredProducts} onFilter={handleFilter} />}
+        />
+        <Route path="/about" element={<About />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
     </CartProvider>
   );
 }
