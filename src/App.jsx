@@ -53,7 +53,7 @@ function App() {
     <CartProvider>
       <div>
         <NavBar />
-        <h1>Mi Tienda</h1>
+        <h1>Tienda React JS</h1>
         <Filters onFilter={handleFilter} />
         <ItemList products={filteredProducts} />
       </div>
