@@ -1,4 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
+import PropTypes from 'prop-types';  // Importamos PropTypes
 import televisor from '../assets/images/televisor.avif';
 import smartwatch from '../assets/images/smartwatch.jpg';
 import auricular from '../assets/images/auricular.png';
@@ -39,6 +41,11 @@ const Home = ({ onFilter }) => {
       </div>
     </div>
   );
+};
+
+// Validamos que onFilter sea una función y que sea requerida
+Home.propTypes = {
+  onFilter: PropTypes.func.isRequired,
 };
 
 export default Home;
