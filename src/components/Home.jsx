@@ -1,108 +1,44 @@
 import React from 'react';
+import televisor from '../assets/images/televisor.avif';
+import smartwatch from '../assets/images/smartwatch.jpg';
+import auricular from '../assets/images/auricular.png';
+import celular from '../assets/images/celular.jpg';
+import laptop from '../assets/images/laptop.webp';
 
-const Home = () => {
-    return (
-        <div className="container my-5">
-            {/* Título principal */}
-            <h1 className="display-4 text-center mb-4">Bienvenido a Nuestra Tienda</h1>
-            
-            {/* Descripción introductoria */}
-            <p className="lead text-center mb-5">
-                Explora una amplia variedad de productos de alta calidad y encuentra lo que mejor se adapte a tus necesidades.
-                ¡Tu próxima compra te está esperando!
-            </p>
-            
-            {/* Sección de productos destacados */}
-            <section className="mt-5">
-                <h2 className="h4 mb-4 text-center">Productos Destacados</h2>
-                <div className="row">
-                    {/* Producto 1 */}
-                    <div className="col-md-4 mb-4">
-                        <div className="card">
-                            <img 
-                                src="https://via.placeholder.com/200" 
-                                className="card-img-top" 
-                                alt="Producto 1" 
-                            />
-                            <div className="card-body">
-                                <h5 className="card-title">Producto 1</h5>
-                                <p className="card-text">Descripción breve del producto. ¡No te lo pierdas!</p>
-                                <a href="#" className="btn btn-primary">Ver más</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    {/* Producto 2 */}
-                    <div className="col-md-4 mb-4">
-                        <div className="card">
-                            <img 
-                                src="https://via.placeholder.com/200" 
-                                className="card-img-top" 
-                                alt="Producto 2" 
-                            />
-                            <div className="card-body">
-                                <h5 className="card-title">Producto 2</h5>
-                                <p className="card-text">Descripción breve del producto. ¡No te lo pierdas!</p>
-                                <a href="#" className="btn btn-primary">Ver más</a>
-                            </div>
-                        </div>
-                    </div>
+const Home = ({ onFilter }) => {
+  // Definimos las categorías con imágenes representativas
+  const categories = [
+    { name: 'Televisores', image: televisor, description: 'Encuentra los mejores televisores para tu hogar.' },
+    { name: 'Relojes', image: smartwatch, description: 'Los relojes más modernos y elegantes.' },
+    { name: 'Auriculares', image: auricular, description: 'Disfruta de un sonido de alta calidad.' },
+    { name: 'Celulares', image: celular, description: 'Últimos modelos de teléfonos móviles.' },
+    { name: 'Laptops', image: laptop, description: 'Las mejores laptops para trabajo y entretenimiento.' },
+  ];
 
-                    {/* Producto 3 */}
-                    <div className="col-md-4 mb-4">
-                        <div className="card">
-                            <img 
-                                src="https://via.placeholder.com/200" 
-                                className="card-img-top" 
-                                alt="Producto 3" 
-                            />
-                            <div className="card-body">
-                                <h5 className="card-title">Producto 3</h5>
-                                <p className="card-text">Descripción breve del producto. ¡No te lo pierdas!</p>
-                                <a href="#" className="btn btn-primary">Ver más</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+  const handleCategoryClick = (categoryName) => {
+    onFilter({ category: categoryName }); // Filtrar productos por categoría
+  };
 
-            {/* Sección de beneficios o características */}
-            <section className="mt-5">
-                <h2 className="h4 mb-4 text-center">¿Por qué elegirnos?</h2>
-                <div className="row">
-                    <div className="col-md-4">
-                        <div className="card p-4">
-                            <h5 className="card-title">Envíos rápidos</h5>
-                            <p className="card-text">
-                                Disfruta de envíos rápidos y seguros, con opciones de seguimiento en tiempo real.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <div className="card p-4">
-                            <h5 className="card-title">Pago seguro</h5>
-                            <p className="card-text">
-                                Ofrecemos métodos de pago seguros para que puedas comprar con tranquilidad.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <div className="card p-4">
-                            <h5 className="card-title">Soporte al cliente</h5>
-                            <p className="card-text">
-                                Nuestro equipo de soporte está disponible para ayudarte en todo momento.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Llamado a la acción */}
-            <section className="mt-5 text-center">
-                <a href="#" className="btn btn-success btn-lg">Ver más productos</a>
-            </section>
-        </div>
-    );
+  return (
+    <div className="home">
+      <h1>Nuestros productos</h1>
+      <p>Explora nuestra variedad de productos por categoría.</p>
+      <div className="categories">
+        {categories.map((category) => (
+          <div
+            key={category.name}
+            className="category-card"
+            onClick={() => handleCategoryClick(category.name)}
+          >
+            <img src={category.image} alt={category.name} />
+            <h2>{category.name}</h2>
+            <p>{category.description}</p>
+            <button>Ver productos</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Home;

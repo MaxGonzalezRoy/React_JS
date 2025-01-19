@@ -57,7 +57,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Home products={filteredProducts} onFilter={handleFilter} />}
+          element={<Home onFilter={handleFilter} />}
         />
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
