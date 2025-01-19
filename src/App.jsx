@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import NavBar from './components/NavBar';
 import { getProducts } from './firebase/db';
@@ -6,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import About from './components/About';
 import Cart from './components/Cart';
+import CategoryProducts from './components/CategoryProducts';
 
 function App() {
   const [allProducts, setAllProducts] = useState([]);
@@ -55,12 +57,10 @@ function App() {
     <CartProvider>
       <NavBar />
       <Routes>
-        <Route
-          path="/"
-          element={<Home onFilter={handleFilter} />}
-        />
+        <Route path="/" element={<Home onFilter={handleFilter} />} />
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/category/:category" element={<CategoryProducts />} />
       </Routes>
     </CartProvider>
   );
