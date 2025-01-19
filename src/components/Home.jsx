@@ -1,6 +1,5 @@
-// eslint-disable-next-line no-unused-vars
 import React from 'react';
-import PropTypes from 'prop-types';  // Importamos PropTypes
+import PropTypes from 'prop-types';
 import televisor from '../assets/images/televisor.avif';
 import reloj from '../assets/images/reloj.jpg';
 import auricular from '../assets/images/auricular.png';
@@ -9,9 +8,8 @@ import laptop from '../assets/images/laptop.webp';
 import { useNavigate } from 'react-router-dom';
 
 const Home = ({ onFilter }) => {
-  const navigate = useNavigate(); // Inicializamos useNavigate
+  const navigate = useNavigate();
 
-  // Definimos las categorías con imágenes representativas
   const categories = [
     { name: 'Televisores', image: televisor, description: 'Encuentra los mejores televisores para tu hogar.' },
     { name: 'Relojes', image: reloj, description: 'Los relojes más modernos y elegantes.' },
@@ -21,8 +19,8 @@ const Home = ({ onFilter }) => {
   ];
 
   const handleCategoryClick = (categoryName) => {
-    onFilter({ category: categoryName }); // Filtrar productos por categoría
-    navigate(`/category/${categoryName.toLowerCase()}`); // Redirigir a la página de productos filtrados por categoría
+    onFilter(categoryName); // Pasar el nombre de la categoría al filtro
+    navigate(`/category/${categoryName.toLowerCase()}`); // Redirigir a la página de productos filtrados
   };
 
   return (
@@ -47,7 +45,6 @@ const Home = ({ onFilter }) => {
   );
 };
 
-// Validamos que onFilter sea una función y que sea requerida
 Home.propTypes = {
   onFilter: PropTypes.func.isRequired,
 };
