@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import CategoryProducts from './components/CategoryProducts';
+import About from './components/About';
+import Cart from './components/Cart';
 import { CartProvider } from './context/CartContext';
 
 function App() {
@@ -23,6 +25,14 @@ function App() {
         <Route
           path="/category/:categoryName"
           element={<CategoryProducts />}
+        />
+        <Route
+          path="/about"
+          element={<About />}
+        />
+        <Route
+          path="/cart"
+          element={<Cart />}
         />
       </Routes>
     </CartProvider>
