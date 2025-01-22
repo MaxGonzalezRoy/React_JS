@@ -1,4 +1,4 @@
-import { db } from '../firebase/db'; // Asegúrate de importar correctamente desde tu archivo de configuración
+import { db } from '../firebase/db';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
 export const getProductsByCategory = async (category) => {

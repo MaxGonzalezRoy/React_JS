@@ -1,35 +1,91 @@
 .navbar {
     background-color: #007bff;
-    padding: 15px 20px;
+    padding: 15px 30px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .navbar-list {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 25px;
     margin: 0;
     padding: 0;
 }
 
 .navbar-item {
     text-transform: uppercase;
+    font-weight: 600;
+    position: relative;
+}
+
+.navbar-item::before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #ffcc00;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.navbar-item:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
 
 .navbar-link {
     text-decoration: none;
     color: #fff;
     font-size: 1.2rem;
-    transition: color 0.2s;
+    font-family: 'Arial', sans-serif;
+    transition: color 0.2s, transform 0.2s;
 }
 
 .navbar-link:hover {
     color: #ffcc00;
+    transform: translateY(-3px);
 }
 
 .navbar-link:active {
     color: #ffd700;
+    transform: translateY(0);
+}
+
+.navbar-logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.navbar-logo:hover {
+    color: #ffcc00;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    .navbar-list {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .navbar-item::before {
+        bottom: -10px;
+    }
 }
