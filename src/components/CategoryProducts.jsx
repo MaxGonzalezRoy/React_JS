@@ -1,6 +1,5 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types'; // Importa PropTypes para validar las props
+import PropTypes from 'prop-types';
 import ItemList from './ItemList';
 import { getProducts } from '../firebase/db';
 
@@ -8,6 +7,7 @@ const CategoryProducts = ({ categoryFilter }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [priceRange, setPriceRange] = useState({ min: 0, max: 10000 });
+  const [appliedPriceRange, setAppliedPriceRange] = useState(priceRange); // Rango de precio aplicado
 
   // Obtención de productos desde Firebase
   useEffect(() => {
@@ -15,7 +15,7 @@ const CategoryProducts = ({ categoryFilter }) => {
       try {
         const productsData = await getProducts();
         setProducts(productsData);
-        console.log('Productos obtenidos:', productsData); // Verifica los productos obtenidos
+        console.log('Productos obtenidos:', productsData);
       } catch (error) {
         console.error('Error al obtener los productos:', error);
       } finally {
@@ -29,19 +29,13 @@ const CategoryProducts = ({ categoryFilter }) => {
   // Filtrado de productos por categoría y precio
   const filteredProducts = products
     .filter((product) => {
-      console.log('Producto antes del filtro:', product); // Ver productos antes del filtro
-      const isInCategory = product.category === categoryFilter;
-      const isPriceInRange = product.price >= priceRange.min && product.price <= priceRange.max;
-      console.log('Categoría coincidente:', isInCategory);
-      console.log('¿Precio dentro del rango?', isPriceInRange);
-      return isInCategory && isPriceInRange; // Solo productos que coinciden con la categoría y el rango de precio
+      const isInCategory = categoryFilter ? product.category === categoryFilter : true;
+      const isPriceInRange = product.price >= appliedPriceRange.min && product.price <= appliedPriceRange.max;
+      return isInCategory && isPriceInRange;
     })
-    .map((product) => {
-      console.log('Producto filtrado:', product); // Ver productos después del filtro
-      return product;
-    });
+    .map((product) => product);
 
-  console.log('Productos filtrados:', filteredProducts); // Ver productos filtrados
+  console.log('Productos filtrados:', filteredProducts);
 
   if (loading) {
     return <p>Cargando productos...</p>;
@@ -52,31 +46,35 @@ const CategoryProducts = ({ categoryFilter }) => {
     const { name, value } = e.target;
     setPriceRange((prevRange) => ({
       ...prevRange,
-      [name]: value,
+      [name]: parseFloat(value), // Asegurarse de convertir el valor a número
     }));
+  };
+
+  // Función para aplicar el filtro de rango de precio
+  const applyPriceFilter = () => {
+    setAppliedPriceRange(priceRange); // Aplica el filtro con el rango actual
+  };
+
+  // Función para seleccionar un filtro predefinido desde la lista desplegable
+  const handlePredefinedRangeSelect = (e) => {
+    const [min, max] = e.target.value.split('-').map(Number);
+    setPriceRange({ min, max });
+    setAppliedPriceRange({ min, max }); // Aplica el filtro automáticamente
   };
 
   return (
     <div>
-      <h1>Productos en la categoría: {categoryFilter}</h1>
+      <h1>Productos en la categoría: {categoryFilter || 'Todas las categorías'}</h1>
 
-      {/* Filtro por precio */}
+      {/* Lista desplegable para filtros predefinidos */}
       <div>
-        <label>Rango de precio:</label>
-        <input
-          type="number"
-          name="min"
-          value={priceRange.min}
-          onChange={handlePriceRangeChange}
-          placeholder="Precio mínimo"
-        />
-        <input
-          type="number"
-          name="max"
-          value={priceRange.max}
-          onChange={handlePriceRangeChange}
-          placeholder="Precio máximo"
-        />
+        <label>Selecciona un rango de precio:</label>
+        <select onChange={handlePredefinedRangeSelect} defaultValue="">
+          <option value="">Selecciona un rango...</option>
+          <option value="0-1000">0 - 1000</option>
+          <option value="1000-5000">1000 - 5000</option>
+          <option value="5000-10000">5000 - 10000</option>
+        </select>
       </div>
 
       {filteredProducts.length > 0 ? (
@@ -88,9 +86,8 @@ const CategoryProducts = ({ categoryFilter }) => {
   );
 };
 
-// Validación de las props
 CategoryProducts.propTypes = {
-  categoryFilter: PropTypes.string.isRequired, // categoryFilter debe ser un string y es obligatorio
+  categoryFilter: PropTypes.string.isRequired,
 };
 
 export default CategoryProducts;
