@@ -1,27 +1,31 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
-import { useCart } from '../context/CartContext'; // Asegúrate de importar correctamente
+import { useCart } from '../context/CartContext'; // Usa solo el hook useCart
 
 const Cart = () => {
-  const { cart, addToCart, removeFromCart, clearCart } = useCart(); // Usar el hook useCart
+    const { cart, removeFromCart } = useCart(); // Aquí usamos useCart para acceder al contexto
+
+    const handleRemove = (productId) => {
+        removeFromCart(productId); // Llamada a la función removeFromCart
+    };
 
     return (
-    <div>
-        <h2>Carrito de Compras</h2>
-        <ul>
-        {cart.length === 0 ? (
-            <p>El carrito está vacío</p>
-        ) : (
-            cart.map((product) => (
-            <li key={product.id}>
-                <span>{product.name}</span>
-                <button onClick={() => removeFromCart(product.id)}>Eliminar</button>
-            </li>
-            ))
-        )}
-        </ul>
-        {cart.length > 0 && <button onClick={clearCart}>Vaciar carrito</button>}
-    </div>
+        <div>
+            <h2>Carrito</h2>
+            {cart.length === 0 ? (
+                <p>No hay productos en el carrito.</p>
+            ) : (
+                <ul>
+                    {cart.map((item) => (
+                        <li key={item.id}>
+                            <h3>{item.name}</h3>
+                            <p>Precio: ${item.price}</p>
+                            <button onClick={() => handleRemove(item.id)}>Eliminar</button>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
     );
 };
 

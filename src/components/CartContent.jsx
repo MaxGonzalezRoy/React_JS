@@ -3,7 +3,11 @@ import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
 const CartContent = () => {
-    const { cartItems, removeItemFromCart, clearCart } = useContext(CartContext); // Extraemos los valores del contexto
+    const { cartItems, removeItemFromCart, clearCart } = useContext(CartContext); // Extraemos el contexto
+
+    const handleRemove = (productId) => {
+        removeItemFromCart(productId); // Llamada correcta a removeItemFromCart
+    };
 
     return (
         <div className="cart-container">
@@ -21,7 +25,7 @@ const CartContent = () => {
                                 <div className="cart-item-details">
                                     <h3>{item.name}</h3>
                                     <p>Precio: ${item.price}</p>
-                                    <button onClick={() => removeItemFromCart(item.id)}>Eliminar</button>
+                                    <button onClick={() => handleRemove(item.id)}>Eliminar</button>
                                 </div>
                             </li>
                         ))}
@@ -29,7 +33,7 @@ const CartContent = () => {
 
                     {/* Resumen del carrito */}
                     <div className="cart-summary">
-                        <p>Total: ${cartItems.reduce((acc, item) => acc + item.price, 0)}</p>
+                        <p>Total: ${cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)}</p>
                         <button onClick={clearCart}>Vaciar carrito</button>
                     </div>
                 </div>

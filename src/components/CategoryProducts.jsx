@@ -1,4 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types'; // Importa PropTypes para validar las props
 import ItemList from './ItemList';
 import { getProducts } from '../firebase/db';
 
@@ -45,9 +47,38 @@ const CategoryProducts = ({ categoryFilter }) => {
     return <p>Cargando productos...</p>;
   }
 
+  // Función para manejar el cambio del rango de precio
+  const handlePriceRangeChange = (e) => {
+    const { name, value } = e.target;
+    setPriceRange((prevRange) => ({
+      ...prevRange,
+      [name]: value,
+    }));
+  };
+
   return (
     <div>
       <h1>Productos en la categoría: {categoryFilter}</h1>
+
+      {/* Filtro por precio */}
+      <div>
+        <label>Rango de precio:</label>
+        <input
+          type="number"
+          name="min"
+          value={priceRange.min}
+          onChange={handlePriceRangeChange}
+          placeholder="Precio mínimo"
+        />
+        <input
+          type="number"
+          name="max"
+          value={priceRange.max}
+          onChange={handlePriceRangeChange}
+          placeholder="Precio máximo"
+        />
+      </div>
+
       {filteredProducts.length > 0 ? (
         <ItemList items={filteredProducts} />
       ) : (
@@ -55,6 +86,11 @@ const CategoryProducts = ({ categoryFilter }) => {
       )}
     </div>
   );
+};
+
+// Validación de las props
+CategoryProducts.propTypes = {
+  categoryFilter: PropTypes.string.isRequired, // categoryFilter debe ser un string y es obligatorio
 };
 
 export default CategoryProducts;

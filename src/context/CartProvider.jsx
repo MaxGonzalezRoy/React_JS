@@ -1,10 +1,14 @@
+// eslint-disable-next-line no-unused-vars
 import React, { createContext, useContext, useState } from 'react';
 
+// Crear el contexto
 const CartContext = createContext();
 
+// Proveedor del contexto
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
 
+    // Función para agregar productos al carrito
     const addToCart = (product) => {
         setCart((prevCart) => {
             const existingProduct = prevCart.find(item => item.id === product.id);
@@ -19,10 +23,12 @@ export const CartProvider = ({ children }) => {
         });
     };
 
+    // Función para eliminar productos del carrito
     const removeFromCart = (productId) => {
         setCart(prevCart => prevCart.filter(item => item.id !== productId));
     };
 
+    // Obtener el total del carrito
     const getTotal = () => {
         return cart.reduce((total, item) => total + item.price * item.quantity, 0);
     };
@@ -34,4 +40,5 @@ export const CartProvider = ({ children }) => {
     );
 };
 
+// Hook para usar el contexto del carrito
 export const useCart = () => useContext(CartContext);

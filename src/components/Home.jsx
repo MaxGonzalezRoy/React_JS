@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import PropTypes from 'prop-types';
 import televisor from '../assets/images/televisor.avif';
@@ -27,7 +28,7 @@ const Home = ({ onFilter }) => {
     <div className="home">
       <h1>Nuestros productos</h1>
       <p>Explora nuestra variedad de productos por categoría.</p>
-      <div className="categories">
+      <div className="category-list-container"> {/* Contenedor para las tarjetas */}
         {categories.map((category) => (
           <div
             key={category.name}

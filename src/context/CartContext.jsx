@@ -1,33 +1,47 @@
-import { createContext, useContext, useState } from 'react';
+// eslint-disable-next-line no-unused-vars
+import React, { createContext, useContext, useState } from 'react';
+import PropTypes from 'prop-types'; // Importa PropTypes
 
-// Crear el contexto de carrito
+// Crear el contexto
 const CartContext = createContext();
 
-// Hook personalizado para usar el carrito
-export const useCart = () => {
-    return useContext(CartContext);
-};
-
-// Proveedor del carrito
+// Proveedor del contexto
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
 
-  // Lógica para manejar el carrito aquí
     const addToCart = (product) => {
-    setCart([...cart, product]);
+        setCart((prevCart) => {
+            const existingProduct = prevCart.find(item => item.id === product.id);
+            if (existingProduct) {
+                return prevCart.map(item =>
+                    item.id === product.id
+                        ? { ...item, quantity: item.quantity + (product.quantity || 1) }
+                        : item
+                );
+            }
+            return [...prevCart, { ...product, quantity: product.quantity || 1 }];
+        });
     };
 
     const removeFromCart = (productId) => {
-    setCart(cart.filter((item) => item.id !== productId));
+        setCart(prevCart => prevCart.filter(item => item.id !== productId));
     };
 
-    const clearCart = () => {
-    setCart([]);
+    const getTotal = () => {
+        return cart.reduce((total, item) => total + item.price * item.quantity, 0);
     };
 
     return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
-        {children}
-    </CartContext.Provider>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getTotal }}>
+            {children}
+        </CartContext.Provider>
     );
 };
+
+// Validación de los props
+CartProvider.propTypes = {
+    children: PropTypes.node.isRequired, // Validamos que 'children' sea un nodo React obligatorio
+};
+
+// Hook para usar el contexto del carrito
+export const useCart = () => useContext(CartContext);
