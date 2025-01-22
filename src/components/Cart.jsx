@@ -10,17 +10,21 @@ const Cart = () => {
     };
 
     return (
-        <div>
-            <h2>Carrito</h2>
+        <div className="cart-container">
+            <h2 className="cart-title">Carrito</h2>
             {cart.length === 0 ? (
-                <p>No hay productos en el carrito.</p>
+                <p className="cart-empty">No hay productos en el carrito.</p>
             ) : (
-                <ul>
+                <ul className="cart-list">
                     {cart.map((item) => (
-                        <li key={item.id}>
-                            <h3>{item.name}</h3>
-                            <p>Precio: ${item.price}</p>
-                            <button onClick={() => handleRemove(item.id)}>Eliminar</button>
+                        <li key={item.id} className="cart-item">
+                            <h3 className="cart-item-title">{item.name}</h3>
+                            <p className="cart-item-price">Precio: ${item.price}</p>
+                            <button 
+                                className="cart-item-remove" 
+                                onClick={() => handleRemove(item.id)}>
+                                Eliminar
+                            </button>
                         </li>
                     ))}
                 </ul>
