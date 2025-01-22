@@ -459,3 +459,87 @@ button:hover {
 }
 
 
+/* Contenedor general de los filtros */
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+  /* Etiquetas de los filtros */
+.filters-container label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+  /* Selectores de los filtros */
+.filters-container select {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.filters-container select:focus {
+    border-color: #007bff;
+}
+
+  /* Filtro de precio con opción de rango */
+.price-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+  /* Estilos específicos para los rangos de precio */
+.price-filter select {
+    max-width: 200px;
+}
+
+  /* Estilo para las opciones del filtro de marca */
+.brand-filter select {
+    max-width: 200px;
+}
+
+  /* Espaciado entre los filtros y el contenido */
+  .filters-container > * {
+    margin-bottom: 1rem;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-selector button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+}
+
+.quantity-selector input {
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.quantity-selector button:disabled {
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+}

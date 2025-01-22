@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'; // Importamos PropTypes
 import { useCart } from '../context/CartContext'; // Usamos el hook useCart
 
 const Item = ({ product }) => {
-  const { addToCart, removeFromCart } = useCart(); // Obtenemos las funciones addToCart y removeFromCart del contexto
+  const { addToCart, removeFromCart, cart } = useCart(); // Usamos cart desde el contexto
   const [added, setAdded] = useState(false); // Estado para saber si el producto fue agregado al carrito
   const [removed, setRemoved] = useState(false); // Estado para saber si el producto fue eliminado del carrito
 
@@ -13,7 +13,7 @@ const Item = ({ product }) => {
     setAdded(true); // Marca que el producto fue agregado
     setRemoved(false); // Aseguramos que el estado de eliminado se restablezca
     setTimeout(() => {
-      setAdded(false); // Restablecer el estado de agregado
+      setAdded(false); // Restablecer el estado de agregado después de 1.5 segundos
     }, 1500);
   };
 
@@ -22,9 +22,12 @@ const Item = ({ product }) => {
     setRemoved(true); // Marca que el producto fue eliminado
     setAdded(false); // Aseguramos que el estado de agregado se restablezca
     setTimeout(() => {
-      setRemoved(false); // Restablecer el estado de eliminado
+      setRemoved(false); // Restablecer el estado de eliminado después de 1.5 segundos
     }, 1500);
   };
+
+  // Comprobar si el producto ya está en el carrito (Asegúrate de que cart no sea undefined)
+  const isInCart = cart && cart.some(item => item.id === product.id);
 
   return (
     <div className="item-card">
@@ -32,13 +35,17 @@ const Item = ({ product }) => {
       <p>Precio: ${product.price}</p>
       <img src={product.image} alt={product.name} />
       
-      {/* Botón para agregar al carrito */}
+      {/* Botón para agregar al carrito o eliminarlo */}
       <button 
-        onClick={handleAddToCart} 
-        className={added ? "added" : ""}
+        onClick={isInCart ? handleRemoveFromCart : handleAddToCart} 
+        className={isInCart ? "in-cart" : "add-to-cart"}
       >
-        {added ? "Producto agregado!" : "Agregar al carrito"}
+        {isInCart ? "Eliminar del carrito" : "Agregar al carrito"}
       </button>
+
+      {/* Indicador visual de acción */}
+      {added && !removed && <p>Producto agregado al carrito!</p>}
+      {removed && !added && <p>Producto eliminado del carrito!</p>}
     </div>
   );
 };

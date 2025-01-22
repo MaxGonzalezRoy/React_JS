@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ItemList from './ItemList';
 import { getProducts } from '../firebase/db';
+import '../App.css'; // Asegúrate de que esta ruta sea correcta
 
 const CategoryProducts = ({ categoryFilter }) => {
   const [products, setProducts] = useState([]);
@@ -98,27 +99,29 @@ const CategoryProducts = ({ categoryFilter }) => {
     <div>
       <h1>Productos en la categoría: {categoryFilter || 'Todas las categorías'}</h1>
 
-      {/* Filtro por marca */}
-      <div>
-        <label>Selecciona una marca:</label>
-        <select onChange={handleBrandSelect} value={selectedBrand || ''}>
-          <option value="">Selecciona una marca...</option>
-          {brands.map((brand) => (
-            <option key={brand} value={brand}>
-              {brand}
-            </option>
-          ))}
-        </select>
-      </div>
+      <div className="filters-container">
+        {/* Filtro por marca */}
+        <div className="brand-filter">
+          <label>Selecciona una marca:</label>
+          <select onChange={handleBrandSelect} value={selectedBrand || ''}>
+            <option value="">Selecciona una marca...</option>
+            {brands.map((brand) => (
+              <option key={brand} value={brand}>
+                {brand}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Lista desplegable para filtros predefinidos de precio */}
-      <div>
-        <label>Selecciona un rango de precio:</label>
-        <select onChange={handlePredefinedRangeSelect} value={`${appliedPriceRange.min}-${appliedPriceRange.max}`}>
-          <option value="0-1000">0 - 1000</option>
-          <option value="1000-5000">1000 - 5000</option>
-          <option value="5000-10000">5000 - 10000</option>
-        </select>
+        {/* Lista desplegable para filtros predefinidos de precio */}
+        <div className="price-filter">
+          <label>Selecciona un rango de precio:</label>
+          <select onChange={handlePredefinedRangeSelect} value={`${appliedPriceRange.min}-${appliedPriceRange.max}`}>
+            <option value="0-1000">0 - 1000</option>
+            <option value="1000-5000">1000 - 5000</option>
+            <option value="5000-10000">5000 - 10000</option>
+          </select>
+        </div>
       </div>
 
       {filteredProducts.length > 0 ? (
