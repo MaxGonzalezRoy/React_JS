@@ -1,17 +1,17 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProductById } from '../firebase/db'; // Asegúrate de que el archivo db.js esté correctamente configurado
+import { getProductById } from '../firebase/db';
 
 const ProductDetail = () => {
-  const { id } = useParams(); // Obtener el ID del producto desde la URL
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const productData = await getProductById(id); // Función que obtiene el producto desde Firebase
+        const productData = await getProductById(id);
         setProduct(productData);
         setLoading(false);
       } catch (error) {

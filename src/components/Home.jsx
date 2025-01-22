@@ -7,6 +7,7 @@ import auricular from '../assets/images/auricular.png';
 import celular from '../assets/images/celular.jpg';
 import laptop from '../assets/images/laptop.webp';
 import { useNavigate } from 'react-router-dom';
+import '../styles/home.css'
 
 const Home = ({ onFilter }) => {
   const navigate = useNavigate();
@@ -20,15 +21,15 @@ const Home = ({ onFilter }) => {
   ];
 
   const handleCategoryClick = (categoryName) => {
-    onFilter(categoryName); // Pasar el nombre de la categoría al filtro
-    navigate(`/category/${categoryName.toLowerCase()}`); // Redirigir a la página de productos filtrados
+    onFilter(categoryName);
+    navigate(`/category/${categoryName.toLowerCase()}`);
   };
 
   return (
     <div className="home">
       <h1>Nuestros productos</h1>
       <p>Explora nuestra variedad de productos por categoría.</p>
-      <div className="category-list-container"> {/* Contenedor para las tarjetas */}
+      <div className="category-list-container">
         {categories.map((category) => (
           <div
             key={category.name}

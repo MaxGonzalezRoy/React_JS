@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ItemList from './ItemList';
 import { getProducts } from '../firebase/db';
-import '../App.css'; // Asegúrate de que esta ruta sea correcta
 
 const CategoryProducts = ({ categoryFilter }) => {
   const [products, setProducts] = useState([]);
@@ -13,7 +12,6 @@ const CategoryProducts = ({ categoryFilter }) => {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [brands, setBrands] = useState([]);
 
-  // Obtención de productos desde Firebase
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -21,12 +19,10 @@ const CategoryProducts = ({ categoryFilter }) => {
         setProducts(productsData);
         console.log('Productos obtenidos:', productsData);
 
-        // Filtrar los productos por la categoría seleccionada
         const filteredByCategory = categoryFilter
           ? productsData.filter(product => product.category === categoryFilter)
           : productsData;
 
-        // Extraer marcas únicas de los productos filtrados por categoría
         const uniqueBrands = [
           ...new Set(filteredByCategory.map(product => product.brand)),
         ];
@@ -40,28 +36,25 @@ const CategoryProducts = ({ categoryFilter }) => {
     };
 
     fetchProducts();
-  }, [categoryFilter]); // Volver a ejecutar cuando cambia la categoría
+  }, [categoryFilter]);
 
-  // Recuperar los valores almacenados de sessionStorage cuando se recarga la página
   useEffect(() => {
     const storedCategory = sessionStorage.getItem('categoryFilter');
     const storedPriceRange = JSON.parse(sessionStorage.getItem('priceRange'));
     const storedBrand = sessionStorage.getItem('selectedBrand');
 
     if (storedCategory) {
-      setAppliedPriceRange(storedPriceRange || { min: 0, max: 10000 });  // Restablecer el rango de precios
-      setSelectedBrand(storedBrand || '');  // Restablecer la marca
+      setAppliedPriceRange(storedPriceRange || { min: 0, max: 10000 });
+      setSelectedBrand(storedBrand || '');
     }
   }, []);
 
-  // Guardar los valores en sessionStorage cuando cambian
   useEffect(() => {
     sessionStorage.setItem('categoryFilter', categoryFilter);
     sessionStorage.setItem('priceRange', JSON.stringify(appliedPriceRange));
     sessionStorage.setItem('selectedBrand', selectedBrand);
   }, [categoryFilter, appliedPriceRange, selectedBrand]);
 
-  // Filtrado de productos por categoría, precio y marca
   const filteredProducts = products
     .filter((product) => {
       const isInCategory = categoryFilter ? product.category === categoryFilter : true;
@@ -74,7 +67,6 @@ const CategoryProducts = ({ categoryFilter }) => {
     return <p>Cargando productos...</p>;
   }
 
-  // Función para manejar el cambio del rango de precio
   const handlePriceRangeChange = (e) => {
     const { name, value } = e.target;
     setPriceRange((prevRange) => ({
@@ -83,14 +75,12 @@ const CategoryProducts = ({ categoryFilter }) => {
     }));
   };
 
-  // Función para seleccionar un filtro predefinido de precio
   const handlePredefinedRangeSelect = (e) => {
     const [min, max] = e.target.value.split('-').map(Number);
     setPriceRange({ min, max });
     setAppliedPriceRange({ min, max });
   };
 
-  // Función para manejar la selección de marca
   const handleBrandSelect = (e) => {
     setSelectedBrand(e.target.value);
   };
@@ -100,7 +90,6 @@ const CategoryProducts = ({ categoryFilter }) => {
       <h1>Productos en la categoría: {categoryFilter || 'Todas las categorías'}</h1>
 
       <div className="filters-container">
-        {/* Filtro por marca */}
         <div className="brand-filter">
           <label>Selecciona una marca:</label>
           <select onChange={handleBrandSelect} value={selectedBrand || ''}>
@@ -113,7 +102,6 @@ const CategoryProducts = ({ categoryFilter }) => {
           </select>
         </div>
 
-        {/* Lista desplegable para filtros predefinidos de precio */}
         <div className="price-filter">
           <label>Selecciona un rango de precio:</label>
           <select onChange={handlePredefinedRangeSelect} value={`${appliedPriceRange.min}-${appliedPriceRange.max}`}>

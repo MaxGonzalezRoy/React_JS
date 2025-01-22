@@ -2,16 +2,18 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ItemList from "./ItemList";
 import { getProducts, getProductsByCategory } from "../firebase/db";
+import '../styles/item.css'
+
 
 const ItemListContainer = () => {
-    const [items, setItems] = useState([]); // Almacena los productos
-    const [loading, setLoading] = useState(true); // Indica si los datos están cargando
-    const [error, setError] = useState(null); // Almacena errores si ocurren
-    const { id } = useParams(); // Obtiene la categoría de los parámetros de la URL
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const { id } = useParams();
 
     useEffect(() => {
-        setLoading(true); // Inicia el estado de carga al inicio de cada fetch
-        setError(null); // Resetea los errores antes de un nuevo fetch
+        setLoading(true);
+        setError(null);
 
         const fetchProducts = async () => {
             try {
@@ -24,13 +26,13 @@ const ItemListContainer = () => {
                     products = await getProducts();
                 }
 
-                console.log("Productos obtenidos:", products); // Muestra los productos obtenidos
-                setItems(products); // Actualiza el estado con los productos
+                console.log("Productos obtenidos:", products);
+                setItems(products);
             } catch (err) {
                 console.error("Error al obtener productos:", err);
                 setError("Ocurrió un error al cargar los productos.");
             } finally {
-                setLoading(false); // Finaliza el estado de carga
+                setLoading(false);
             }
         };
 

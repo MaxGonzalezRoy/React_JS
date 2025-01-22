@@ -2,6 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Item from './Item';
+import '../styles/item.css'
+
 
 const ItemList = ({ items }) => {
     if (!Array.isArray(items) || items.length === 0) {

@@ -11,7 +11,7 @@ const Products = () => {
         const fetchProducts = async () => {
             try {
                 const productsData = await getProducts();
-                console.log("Productos obtenidos desde Firebase:", productsData); // Verificamos los productos que llegaron
+                console.log("Productos obtenidos desde Firebase:", productsData);
                 setProducts(productsData);
             } catch (error) {
                 console.error("Error al obtener los productos:", error);

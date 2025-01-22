@@ -1,41 +1,69 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
-import PropTypes from 'prop-types'; // Importamos PropTypes
-import { useCart } from '../context/CartContext'; // Usamos el hook useCart
+import PropTypes from 'prop-types';
+import { useCart } from '../context/CartContext';
+import '../styles/item.css'
 
 const Item = ({ product }) => {
-  const { addToCart, removeFromCart, cart } = useCart(); // Usamos cart desde el contexto
-  const [added, setAdded] = useState(false); // Estado para saber si el producto fue agregado al carrito
-  const [removed, setRemoved] = useState(false); // Estado para saber si el producto fue eliminado del carrito
-
+  const { addToCart, removeFromCart, cart } = useCart();
+  const [added, setAdded] = useState(false);
+  const [removed, setRemoved] = useState(false);
+  const [quantity, setQuantity] = useState(1); 
   const handleAddToCart = () => {
-    addToCart(product); // Agregar el producto al carrito
-    setAdded(true); // Marca que el producto fue agregado
-    setRemoved(false); // Aseguramos que el estado de eliminado se restablezca
-    setTimeout(() => {
-      setAdded(false); // Restablecer el estado de agregado después de 1.5 segundos
-    }, 1500);
+    if (quantity <= product.stock) {
+      addToCart({ ...product, quantity });
+      setAdded(true);
+      setRemoved(false);
+      setTimeout(() => {
+        setAdded(false);
+      }, 1500);
+    } else {
+      alert('No hay suficiente stock disponible');
+    }
   };
 
   const handleRemoveFromCart = () => {
-    removeFromCart(product.id); // Eliminar el producto del carrito
-    setRemoved(true); // Marca que el producto fue eliminado
-    setAdded(false); // Aseguramos que el estado de agregado se restablezca
+    removeFromCart(product.id);
+    setRemoved(true);
+    setAdded(false);
     setTimeout(() => {
-      setRemoved(false); // Restablecer el estado de eliminado después de 1.5 segundos
+      setRemoved(false);
     }, 1500);
   };
 
-  // Comprobar si el producto ya está en el carrito (Asegúrate de que cart no sea undefined)
   const isInCart = cart && cart.some(item => item.id === product.id);
+
+  const handleQuantityChange = (event) => {
+    const value = parseInt(event.target.value, 10);
+    if (value >= 1 && value <= product.stock) {
+      setQuantity(value);
+    } else if (value > product.stock) {
+      setQuantity(product.stock);
+    } else {
+      setQuantity(1);
+    }
+  };
 
   return (
     <div className="item-card">
       <h3>{product.name}</h3>
       <p>Precio: ${product.price}</p>
       <img src={product.image} alt={product.name} />
+
+      <p>Stock disponible: {product.stock}</p>
       
-      {/* Botón para agregar al carrito o eliminarlo */}
+      <div className="quantity-selector">
+        <button onClick={() => quantity > 1 && setQuantity(quantity - 1)}>-</button>
+        <input
+          type="number"
+          value={quantity}
+          min="1"
+          max={product.stock}
+          onChange={handleQuantityChange}
+        />
+        <button onClick={() => quantity < product.stock && setQuantity(quantity + 1)}>+</button>
+      </div>
+      
       <button 
         onClick={isInCart ? handleRemoveFromCart : handleAddToCart} 
         className={isInCart ? "in-cart" : "add-to-cart"}
@@ -43,21 +71,20 @@ const Item = ({ product }) => {
         {isInCart ? "Eliminar del carrito" : "Agregar al carrito"}
       </button>
 
-      {/* Indicador visual de acción */}
       {added && !removed && <p>Producto agregado al carrito!</p>}
       {removed && !added && <p>Producto eliminado del carrito!</p>}
     </div>
   );
 };
 
-// Agregar validación de las props
 Item.propTypes = {
   product: PropTypes.shape({
-    name: PropTypes.string.isRequired, // name debe ser una cadena de texto y es obligatorio
-    price: PropTypes.number.isRequired, // price debe ser un número y es obligatorio
-    image: PropTypes.string.isRequired, // image debe ser una cadena de texto y es obligatorio
-    id: PropTypes.string.isRequired, // id debe ser una cadena de texto y es obligatorio
-  }).isRequired, // Aseguramos que la prop 'product' sea obligatoria y cumpla con la estructura anterior
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    stock: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default Item;

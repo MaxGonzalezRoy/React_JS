@@ -1,8 +1,10 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import '../styles/cart.css';
+
 
 const CartWidget = () => {
-    // Obtener el total de productos en el carrito desde el contexto
     const { getTotalItems } = useContext(CartContext);
 
     return (
