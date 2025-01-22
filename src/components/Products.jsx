@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
 import ItemList from "./ItemList";
 import { getProducts } from "../firebase/db";
@@ -10,6 +11,7 @@ const Products = () => {
         const fetchProducts = async () => {
             try {
                 const productsData = await getProducts();
+                console.log("Productos obtenidos desde Firebase:", productsData); // Verificamos los productos que llegaron
                 setProducts(productsData);
             } catch (error) {
                 console.error("Error al obtener los productos:", error);

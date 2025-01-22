@@ -24,7 +24,7 @@ function App() {
         />
         <Route
           path="/category/:categoryName"
-          element={<CategoryProducts />}
+          element={<CategoryProducts categoryFilter={categoryFilter} />}
         />
         <Route
           path="/about"
