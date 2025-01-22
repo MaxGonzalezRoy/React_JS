@@ -41,6 +41,25 @@ const CategoryProducts = ({ categoryFilter }) => {
     fetchProducts();
   }, [categoryFilter]); // Volver a ejecutar cuando cambia la categoría
 
+  // Recuperar los valores almacenados de sessionStorage cuando se recarga la página
+  useEffect(() => {
+    const storedCategory = sessionStorage.getItem('categoryFilter');
+    const storedPriceRange = JSON.parse(sessionStorage.getItem('priceRange'));
+    const storedBrand = sessionStorage.getItem('selectedBrand');
+
+    if (storedCategory) {
+      setAppliedPriceRange(storedPriceRange || { min: 0, max: 10000 });  // Restablecer el rango de precios
+      setSelectedBrand(storedBrand || '');  // Restablecer la marca
+    }
+  }, []);
+
+  // Guardar los valores en sessionStorage cuando cambian
+  useEffect(() => {
+    sessionStorage.setItem('categoryFilter', categoryFilter);
+    sessionStorage.setItem('priceRange', JSON.stringify(appliedPriceRange));
+    sessionStorage.setItem('selectedBrand', selectedBrand);
+  }, [categoryFilter, appliedPriceRange, selectedBrand]);
+
   // Filtrado de productos por categoría, precio y marca
   const filteredProducts = products
     .filter((product) => {
@@ -51,7 +70,7 @@ const CategoryProducts = ({ categoryFilter }) => {
     });
 
   if (loading) {
-    return <p className="loading-message">Cargando productos...</p>;
+    return <p>Cargando productos...</p>;
   }
 
   // Función para manejar el cambio del rango de precio
@@ -76,13 +95,13 @@ const CategoryProducts = ({ categoryFilter }) => {
   };
 
   return (
-    <div className="category-products">
-      <h1 className="category-title">Productos en la categoría: {categoryFilter || 'Todas las categorías'}</h1>
+    <div>
+      <h1>Productos en la categoría: {categoryFilter || 'Todas las categorías'}</h1>
 
       {/* Filtro por marca */}
-      <div className="filter-brand">
-        <label className="filter-label">Selecciona una marca:</label>
-        <select className="filter-select" onChange={handleBrandSelect} defaultValue="">
+      <div>
+        <label>Selecciona una marca:</label>
+        <select onChange={handleBrandSelect} value={selectedBrand || ''}>
           <option value="">Selecciona una marca...</option>
           {brands.map((brand) => (
             <option key={brand} value={brand}>
@@ -93,10 +112,9 @@ const CategoryProducts = ({ categoryFilter }) => {
       </div>
 
       {/* Lista desplegable para filtros predefinidos de precio */}
-      <div className="filter-price">
-        <label className="filter-label">Selecciona un rango de precio:</label>
-        <select className="filter-select" onChange={handlePredefinedRangeSelect} defaultValue="">
-          <option value="">Selecciona un rango...</option>
+      <div>
+        <label>Selecciona un rango de precio:</label>
+        <select onChange={handlePredefinedRangeSelect} value={`${appliedPriceRange.min}-${appliedPriceRange.max}`}>
           <option value="0-1000">0 - 1000</option>
           <option value="1000-5000">1000 - 5000</option>
           <option value="5000-10000">5000 - 10000</option>
@@ -106,7 +124,7 @@ const CategoryProducts = ({ categoryFilter }) => {
       {filteredProducts.length > 0 ? (
         <ItemList items={filteredProducts} />
       ) : (
-        <p className="no-products-message">No hay productos disponibles en esta categoría.</p>
+        <p>No hay productos disponibles en esta categoría.</p>
       )}
     </div>
   );
