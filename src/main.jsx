@@ -9,6 +9,8 @@ import './styles/base.css';
 import './styles/cart.css';
 import './styles/home.css';
 import './styles/item.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

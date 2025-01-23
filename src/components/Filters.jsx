@@ -16,16 +16,7 @@ const Filters = ({ onFilter }) => {
     return (
         <div>
             <label htmlFor="category">Category:</label>
-            <select
-                id="category"
-                value={category}
-                onChange={handleCategoryChange}
-            >
-                <option value="">All</option>
-                <option value="electronics">Electronics</option>
-                <option value="fashion">Fashion</option>
-                <option value="home">Home</option>
-                <option value="toys">Toys</option>
+            <select id="category" value={category} onChange={handleCategoryChange}>
             </select>
         </div>
     );

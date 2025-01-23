@@ -11,18 +11,16 @@ import { CartProvider } from './context/CartContext';
 function App() {
   const [categoryFilter, setCategoryFilter] = useState('');
 
-  // Recuperamos el filtro de categoría desde el localStorage cuando el componente se monta
   useEffect(() => {
     const storedFilter = localStorage.getItem('categoryFilter');
     if (storedFilter) {
-      setCategoryFilter(storedFilter); // Recuperamos el filtro de categoría del localStorage
+      setCategoryFilter(storedFilter);
     }
   }, []);
 
-  // Guardamos el filtro de categoría en el localStorage cada vez que cambie
   useEffect(() => {
     if (categoryFilter) {
-      localStorage.setItem('categoryFilter', categoryFilter); // Guardamos el filtro de categoría en el localStorage
+      localStorage.setItem('categoryFilter', categoryFilter);
     }
   }, [categoryFilter]);
 

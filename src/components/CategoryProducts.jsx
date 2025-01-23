@@ -55,13 +55,14 @@ const CategoryProducts = ({ categoryFilter }) => {
     sessionStorage.setItem('selectedBrand', selectedBrand);
   }, [categoryFilter, appliedPriceRange, selectedBrand]);
 
-  const filteredProducts = products
-    .filter((product) => {
-      const isInCategory = categoryFilter ? product.category === categoryFilter : true;
-      const isPriceInRange = product.price >= appliedPriceRange.min && product.price <= appliedPriceRange.max;
-      const isInBrand = selectedBrand ? product.brand === selectedBrand : true;
-      return isInCategory && isPriceInRange && isInBrand;
-    });
+  const filteredProducts = products.filter((product) => {
+    const isInCategory = categoryFilter ? product.category === categoryFilter : true;
+    const isPriceInRange = appliedPriceRange.min && appliedPriceRange.max 
+      ? product.price >= appliedPriceRange.min && product.price <= appliedPriceRange.max
+      : true; // Si no hay rango, no se filtra por precio.
+    const isInBrand = selectedBrand ? product.brand === selectedBrand : true;
+    return isInCategory && isPriceInRange && isInBrand;
+  });
 
   if (loading) {
     return <p>Cargando productos...</p>;
@@ -77,8 +78,10 @@ const CategoryProducts = ({ categoryFilter }) => {
 
   const handlePredefinedRangeSelect = (e) => {
     const [min, max] = e.target.value.split('-').map(Number);
-    setPriceRange({ min, max });
-    setAppliedPriceRange({ min, max });
+    if (!isNaN(min) && !isNaN(max)) {
+      setPriceRange({ min, max });
+      setAppliedPriceRange({ min, max });
+    }
   };
 
   const handleBrandSelect = (e) => {
@@ -105,6 +108,7 @@ const CategoryProducts = ({ categoryFilter }) => {
         <div className="price-filter">
           <label>Selecciona un rango de precio:</label>
           <select onChange={handlePredefinedRangeSelect} value={`${appliedPriceRange.min}-${appliedPriceRange.max}`}>
+            <option value="">Seleccione un precio</option>
             <option value="0-1000">0 - 1000</option>
             <option value="1000-5000">1000 - 5000</option>
             <option value="5000-10000">5000 - 10000</option>
