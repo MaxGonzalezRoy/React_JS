@@ -1,15 +1,22 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../styles/navbar.css'; // Asegúrate de que esta ruta sea correcta
 
 const NavBar = () => {
+    const [showLoginModal, setShowLoginModal] = useState(false);
+    const [showRegisterModal, setShowRegisterModal] = useState(false);
+
+    const toggleLoginModal = () => setShowLoginModal(!showLoginModal);
+    const toggleRegisterModal = () => setShowRegisterModal(!showRegisterModal);
+
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid">
-                <NavLink className="navbar-brand" to="/">
-                    Tienda React
-                </NavLink>
+        <>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className="container-fluid">
+                    <NavLink className="navbar-brand" to="/">
+                        Tienda React
+                    </NavLink>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -19,44 +26,105 @@ const NavBar = () => {
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
-                    <span className="navbar-toggler-icon"></span>
+                        <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
-                        <li className="nav-item">
-                <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                    isActive ? 'nav-link active' : 'nav-link'
-                    }
-                >
-                    Home
-                </NavLink>
-                    </li>
-                    <li className="nav-item">
-                <NavLink
-                    to="/about"
-                    className={({ isActive }) =>
-                    isActive ? 'nav-link active' : 'nav-link'
-                    }
-                >
-                About
-                </NavLink>
-                    </li>
-                    <li className="nav-item">
-                <NavLink
-                    to="/cart"
-                    className={({ isActive }) =>
-                        isActive ? 'nav-link active' : 'nav-link'
-                    }
-                >
-                    Cart
-                </NavLink>
-                    </li>
-                    </ul>
+                            <li className="nav-item">
+                                <NavLink
+                                    to="/"
+                                    className={({ isActive }) =>
+                                        isActive ? 'nav-link active' : 'nav-link'
+                                    }
+                                >
+                                    Home
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink
+                                    to="/about"
+                                    className={({ isActive }) =>
+                                        isActive ? 'nav-link active' : 'nav-link'
+                                    }
+                                >
+                                    About
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink
+                                    to="/cart"
+                                    className={({ isActive }) =>
+                                        isActive ? 'nav-link active' : 'nav-link'
+                                    }
+                                >
+                                    Cart
+                                </NavLink>
+                            </li>
+                        </ul>
+                        <div className="nav-buttons ms-auto">
+                            <button onClick={toggleLoginModal} className="btn btn-outline-primary me-2">
+                                Iniciar Sesión
+                            </button>
+                            <button onClick={toggleRegisterModal} className="btn btn-outline-secondary">
+                                Registrarse
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+
+            {showLoginModal && (
+                <div className="modal" onClick={toggleLoginModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <h2>Iniciar Sesión</h2>
+                        <form>
+                            <div className="form-group">
+                                <label>Email:</label>
+                                <input type="email" placeholder="Ingresa tu email" required />
+                            </div>
+                            <div className="form-group">
+                                <label>Contraseña:</label>
+                                <input type="password" placeholder="Ingresa tu contraseña" required />
+                            </div>
+                            <button type="submit" className="btn btn-primary">
+                                Iniciar Sesión
+                            </button>
+                            <button onClick={toggleLoginModal} className="btn btn-secondary mt-2">
+                                Cerrar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {showRegisterModal && (
+                <div className="modal" onClick={toggleRegisterModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <h2>Registrarse</h2>
+                        <form>
+                            <div className="form-group">
+                                <label>Nombre:</label>
+                                <input type="text" placeholder="Ingresa tu nombre" required />
+                            </div>
+                            <div className="form-group">
+                                <label>Email:</label>
+                                <input type="email" placeholder="Ingresa tu email" required />
+                            </div>
+                            <div className="form-group">
+                                <label>Contraseña:</label>
+                                <input type="password" placeholder="Crea una contraseña" required />
+                            </div>
+                            <button type="submit" className="btn btn-primary">
+                                Registrarse
+                            </button>
+                            <button onClick={toggleRegisterModal} className="btn btn-secondary mt-2">
+                                Cerrar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 
