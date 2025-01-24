@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import CheckoutForm from './CheckoutForm'; // Importamos el nuevo formulario
 import '../styles/cart.css';
 
 const Cart = () => {
@@ -30,6 +31,9 @@ const Cart = () => {
         <button onClick={clearCart} className="clear-cart-button">
           Vaciar Carrito
         </button>
+      </div>
+      <div>
+        <CheckoutForm />
       </div>
     </div>
   );
