@@ -1,10 +1,10 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { useCart } from '../context/CartContext';
-import '../styles/cart.css'
+import '../styles/cart.css';
 
 const Cart = () => {
-  const { cart, getTotal, removeFromCart } = useCart();
+  const { cart, getTotal, removeFromCart, clearCart } = useCart();
 
   if (cart.length === 0) {
     return <p>No hay productos en el carrito</p>;
@@ -27,6 +27,9 @@ const Cart = () => {
       </div>
       <div>
         <h3>Total: ${getTotal()}</h3>
+        <button onClick={clearCart} className="clear-cart-button">
+          Vaciar Carrito
+        </button>
       </div>
     </div>
   );

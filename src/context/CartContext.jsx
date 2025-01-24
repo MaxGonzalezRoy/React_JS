@@ -17,6 +17,8 @@ export const CartProvider = ({ children }) => {
     useEffect(() => {
         if (cart.length > 0) {
             localStorage.setItem('cart', JSON.stringify(cart));
+        } else {
+            localStorage.removeItem('cart');
         }
     }, [cart]);
 
@@ -37,9 +39,12 @@ export const CartProvider = ({ children }) => {
     const removeFromCart = (productId) => {
         setCart(prevCart => {
             const updatedCart = prevCart.filter(item => item.id !== productId);
-            localStorage.setItem('cart', JSON.stringify(updatedCart));
             return updatedCart;
         });
+    };
+
+    const clearCart = () => {
+        setCart([]);
     };
 
     const getTotal = () => {
@@ -47,7 +52,7 @@ export const CartProvider = ({ children }) => {
     };
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, getTotal }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, getTotal }}>
             {children}
         </CartContext.Provider>
     );
