@@ -103,8 +103,9 @@
 
 .nav-link.active {
     color: #fff;
+    width: 80px;
     background-color: #007bff;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .nav-item::marker {
@@ -122,6 +123,7 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .modal-content {
@@ -180,6 +182,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    aria-lebel: "Cerrar modal";
 }
 
 .close-button:hover {
@@ -188,5 +191,12 @@
 
 .btn {
     display: block;
-    width: 100%;
+    width: 30%;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    width: 400px;
 }
