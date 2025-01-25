@@ -6,6 +6,7 @@ import Home from './components/Home';
 import CategoryProducts from './components/CategoryProducts';
 import About from './components/About';
 import Cart from './components/Cart';
+import './components/CheckoutForm';
 import { CartProvider } from './context/CartContext';
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
         <Route
           path="/cart"
           element={<Cart />}
+        />
+        <Route
+          path="/checkout"
         />
       </Routes>
     </CartProvider>
