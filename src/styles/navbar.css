@@ -131,11 +131,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);  /* Fondo oscuro */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    visibility: hidden;  /* Inicialmente oculto */
+    visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 1000;
