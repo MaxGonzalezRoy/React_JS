@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import '../styles/navbar.css'; // Asegúrate de que esta ruta sea correcta
+import '../styles/navbar.css';
+import CartWidget from './CartWidget';
 
 const NavBar = () => {
     const [showLoginModal, setShowLoginModal] = useState(false);
@@ -70,60 +71,76 @@ const NavBar = () => {
                             </button>
                         </div>
                     </div>
+                    <div className="ms-3">
+                        <CartWidget />
+                    </div>
                 </div>
             </nav>
 
-            {showLoginModal && (
-                <div className="modal" onClick={toggleLoginModal}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h2>Iniciar Sesión</h2>
-                        <form>
-                            <div className="form-group">
-                                <label>Email:</label>
-                                <input type="email" placeholder="Ingresa tu email" required />
-                            </div>
-                            <div className="form-group">
-                                <label>Contraseña:</label>
-                                <input type="password" placeholder="Ingresa tu contraseña" required />
-                            </div>
-                            <button type="submit" className="btn btn-primary">
-                                Iniciar Sesión
-                            </button>
-                            <button onClick={toggleLoginModal} className="btn btn-secondary mt-2">
-                                Cerrar
-                            </button>
-                        </form>
-                    </div>
+            {/* Modal de Iniciar Sesión */}
+            <div className={`modal ${showLoginModal ? 'show' : ''}`} onClick={toggleLoginModal}>
+                <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                    <h2>Iniciar Sesión</h2>
+                    <form>
+                        <div className="form-group">
+                            <label>Email:</label>
+                            <input
+                                type="email"
+                                placeholder="Ingresa tu email"
+                                required
+                                autoComplete="email"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Contraseña:</label>
+                            <input
+                                type="password"
+                                placeholder="Ingresa tu contraseña"
+                                required
+                                autoComplete="current-password"
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-primary">
+                            Iniciar Sesión
+                        </button>
+                        <button onClick={toggleLoginModal} className="btn btn-secondary mt-2">
+                            Cerrar
+                        </button>
+                    </form>
                 </div>
-            )}
+            </div>
 
-            {showRegisterModal && (
-                <div className="modal" onClick={toggleRegisterModal}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h2>Registrarse</h2>
-                        <form>
-                            <div className="form-group">
-                                <label>Nombre:</label>
-                                <input type="text" placeholder="Ingresa tu nombre" required />
-                            </div>
-                            <div className="form-group">
-                                <label>Email:</label>
-                                <input type="email" placeholder="Ingresa tu email" required />
-                            </div>
-                            <div className="form-group">
-                                <label>Contraseña:</label>
-                                <input type="password" placeholder="Crea una contraseña" required />
-                            </div>
-                            <button type="submit" className="btn btn-primary">
-                                Registrarse
-                            </button>
-                            <button onClick={toggleRegisterModal} className="btn btn-secondary mt-2">
-                                Cerrar
-                            </button>
-                        </form>
-                    </div>
+            {/* Modal de Registrarse */}
+            <div className={`modal ${showRegisterModal ? 'show' : ''}`} onClick={toggleRegisterModal}>
+                <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                    <h2>Registrarse</h2>
+                    <form>
+                        <div className="form-group">
+                            <label>Nombre:</label>
+                            <input type="text" placeholder="Ingresa tu nombre" required />
+                        </div>
+                        <div className="form-group">
+                            <label>Email:</label>
+                            <input type="email" placeholder="Ingresa tu email" required autoComplete="email" />
+                        </div>
+                        <div className="form-group">
+                            <label>Contraseña:</label>
+                            <input
+                                type="password"
+                                placeholder="Crea una contraseña"
+                                required
+                                autoComplete="new-password"
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-primary">
+                            Registrarse
+                        </button>
+                        <button onClick={toggleRegisterModal} className="btn btn-secondary mt-2">
+                            Cerrar
+                        </button>
+                    </form>
                 </div>
-            )}
+            </div>
         </>
     );
 };

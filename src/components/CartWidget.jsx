@@ -1,8 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useContext } from 'react';
-import { CartContext } from '../context/CartContext';
+import { CartContext } from '../context/CartContext'; // Ahora correctamente importado
 import '../styles/cart.css';
-
 
 const CartWidget = () => {
     const { getTotalItems } = useContext(CartContext);
