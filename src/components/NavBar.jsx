@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import '../styles/navbar.css';
 import CartWidget from './CartWidget';
+import logo from '../assets/images/logo1.png';
 
 const NavBar = () => {
     const [showLoginModal, setShowLoginModal] = useState(false);
@@ -15,9 +16,11 @@ const NavBar = () => {
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-                    <NavLink className="navbar-brand" to="/">
+                    <NavLink className="navbar-brand d-flex align-items-center" to="/">
+                        <img src={logo} alt="Logo de la tienda" className="logo me-2" />
                         Tienda React
                     </NavLink>
+
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -29,6 +32,7 @@ const NavBar = () => {
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
+
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
@@ -71,13 +75,13 @@ const NavBar = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="ms-3">
+
+                    <div className="ms-3 cart-widget-container">
                         <CartWidget />
                     </div>
                 </div>
             </nav>
 
-            {/* Modal de Iniciar Sesión */}
             <div className={`modal ${showLoginModal ? 'show' : ''}`} onClick={toggleLoginModal}>
                 <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                     <h2>Iniciar Sesión</h2>
@@ -110,7 +114,6 @@ const NavBar = () => {
                 </div>
             </div>
 
-            {/* Modal de Registrarse */}
             <div className={`modal ${showRegisterModal ? 'show' : ''}`} onClick={toggleRegisterModal}>
                 <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                     <h2>Registrarse</h2>

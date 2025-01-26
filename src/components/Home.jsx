@@ -7,7 +7,8 @@ import auricular from '../assets/images/auricular.png';
 import celular from '../assets/images/celular.jpg';
 import laptop from '../assets/images/laptop.webp';
 import { useNavigate } from 'react-router-dom';
-import '../styles/home.css'
+import '../styles/home.css';
+import { motion } from 'framer-motion';
 
 const Home = ({ onFilter }) => {
   const navigate = useNavigate();
@@ -26,24 +27,39 @@ const Home = ({ onFilter }) => {
   };
 
   return (
-    <div className="home">
+    <motion.div
+      className="home"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
       <h1>Nuestros productos</h1>
       <p>Explora nuestra variedad de productos por categoría.</p>
       <div className="category-list-container">
-        {categories.map((category) => (
-          <div
+        {categories.map((category, index) => (
+          <motion.div
             key={category.name}
             className="category-card"
             onClick={() => handleCategoryClick(category.name)}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.2 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             <img src={category.image} alt={category.name} />
             <h2>{category.name}</h2>
             <p>{category.description}</p>
-            <button>Ver productos</button>
-          </div>
+            <motion.button
+              whileHover={{ scale: 1.1, backgroundColor: "#0056b3" }}
+              whileTap={{ scale: 0.9 }}
+            >
+              Ver productos
+            </motion.button>
+          </motion.div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

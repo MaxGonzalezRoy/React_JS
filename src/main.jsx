@@ -10,6 +10,7 @@ import './styles/cart.css';
 import './styles/home.css';
 import './styles/item.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Footer from './components/Footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,5 +18,6 @@ root.render(
     <CartProvider>
       <App />
     </CartProvider>
+    <Footer/>
   </BrowserRouter>
 );

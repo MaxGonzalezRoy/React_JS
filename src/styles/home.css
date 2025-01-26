@@ -10,6 +10,20 @@
     background-attachment: fixed;
     margin: 0;
     height: 150vh;
+    background: linear-gradient(135deg, #007bff, #f8f9fa);
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .home h1 {
