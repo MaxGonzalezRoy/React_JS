@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ItemList from './ItemList';
 import { getProducts } from '../firebase/db';
+import '../styles/categoryProducts.css';
 
 const CategoryProducts = ({ categoryFilter }) => {
   const [products, setProducts] = useState([]);

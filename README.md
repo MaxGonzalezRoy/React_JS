@@ -30,16 +30,13 @@ Este proyecto es una aplicación web desarrollada con **React** y **Vite** que s
 - **Vite**: Herramienta moderna y rápida para el desarrollo de aplicaciones React.
 - **React Router DOM**: Manejo de rutas dinámicas y navegación entre vistas.
 - **Bootstrap**: Biblioteca de estilos y componentes reutilizables para una interfaz atractiva.
-- **API Simulada**: Utilización de `dummyjson.com` para obtener productos y categorías.
 
-## **Requisitos para correr el proyecto**
-Este proyecto requiere de algunas dependencias para funcionar correctamente. Puedes instalar las dependencias necesarias siguiendo estos pasos:
 
 
 ## **Contacto**
 Desarrollado por [MaxGonzalezRoy](https://github.com/MaxGonzalezRoy).
 Proyecto (https://github.com/MaxGonzalezRoy/React_JS.git).
-Último commit: `"NavegaLasRutas+Gonzalez"`
+Último commit: `"ProyectoFinal+Gonzalez"`
 
 
 
