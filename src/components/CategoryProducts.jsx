@@ -16,16 +16,16 @@ const CategoryProducts = ({ categoryFilter }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoading(true);
         const productsData = await getProducts();
         setProducts(productsData);
-        console.log('Productos obtenidos:', productsData);
 
         const filteredByCategory = categoryFilter
-          ? productsData.filter(product => product.category === categoryFilter)
+          ? productsData.filter((product) => product.category === categoryFilter)
           : productsData;
 
         const uniqueBrands = [
-          ...new Set(filteredByCategory.map(product => product.brand)),
+          ...new Set(filteredByCategory.map((product) => product.brand)),
         ];
 
         setBrands(uniqueBrands);
@@ -58,24 +58,12 @@ const CategoryProducts = ({ categoryFilter }) => {
 
   const filteredProducts = products.filter((product) => {
     const isInCategory = categoryFilter ? product.category === categoryFilter : true;
-    const isPriceInRange = appliedPriceRange.min && appliedPriceRange.max 
+    const isPriceInRange = appliedPriceRange.min && appliedPriceRange.max
       ? product.price >= appliedPriceRange.min && product.price <= appliedPriceRange.max
-      : true; // Si no hay rango, no se filtra por precio.
+      : true;
     const isInBrand = selectedBrand ? product.brand === selectedBrand : true;
     return isInCategory && isPriceInRange && isInBrand;
   });
-
-  if (loading) {
-    return <p>Cargando productos...</p>;
-  }
-
-  const handlePriceRangeChange = (e) => {
-    const { name, value } = e.target;
-    setPriceRange((prevRange) => ({
-      ...prevRange,
-      [name]: parseFloat(value),
-    }));
-  };
 
   const handlePredefinedRangeSelect = (e) => {
     const [min, max] = e.target.value.split('-').map(Number);
@@ -89,38 +77,47 @@ const CategoryProducts = ({ categoryFilter }) => {
     setSelectedBrand(e.target.value);
   };
 
+  if (loading) {
+    return <p>Cargando productos...</p>;
+  }
+
   return (
     <div>
       <h1>Productos en la categoría: {categoryFilter || 'Todas las categorías'}</h1>
 
       <div className="filters-container">
-        <div className="brand-filter">
-          <label>Selecciona una marca:</label>
-          <select onChange={handleBrandSelect} value={selectedBrand || ''}>
-            <option value="">Selecciona una marca...</option>
-            {brands.map((brand) => (
-              <option key={brand} value={brand}>
-                {brand}
-              </option>
-            ))}
-          </select>
-        </div>
+        <div className="brand-price-filter">
+          <div className="brand-filter">
+            <label>Selecciona una marca:</label>
+            <select onChange={handleBrandSelect} value={selectedBrand || ''}>
+              <option value="">Selecciona una marca...</option>
+              {brands.map((brand) => (
+                <option key={brand} value={brand}>
+                  {brand}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="price-filter">
-          <label>Selecciona un rango de precio:</label>
-          <select onChange={handlePredefinedRangeSelect} value={`${appliedPriceRange.min}-${appliedPriceRange.max}`}>
-            <option value="">Seleccione un precio</option>
-            <option value="0-1000">0 - 1000</option>
-            <option value="1000-5000">1000 - 5000</option>
-            <option value="5000-10000">5000 - 10000</option>
-          </select>
+          <div className="price-filter">
+            <label>Selecciona un rango de precio:</label>
+            <select
+              onChange={handlePredefinedRangeSelect}
+              value={`${appliedPriceRange.min}-${appliedPriceRange.max}`}
+            >
+              <option value="">Seleccione un precio</option>
+              <option value="0-1000">0 - 1000</option>
+              <option value="1000-5000">1000 - 5000</option>
+              <option value="5000-10000">5000 - 10000</option>
+            </select>
+          </div>
         </div>
       </div>
 
       {filteredProducts.length > 0 ? (
         <ItemList items={filteredProducts} />
       ) : (
-        <p>No hay productos disponibles en esta categoría.</p>
+        <p>No hay productos disponibles en esta categoría o no cumplen con los filtros seleccionados.</p>
       )}
     </div>
   );

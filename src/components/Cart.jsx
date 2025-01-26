@@ -1,14 +1,41 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import CheckoutForm from './CheckoutForm';
 import '../styles/cart.css';
 
 const Cart = () => {
   const { cart, getTotal, removeFromCart, clearCart } = useCart();
+  const [loading, setLoading] = useState(true);
+  const [purchaseComplete, setPurchaseComplete] = useState(false);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handlePurchaseComplete = () => {
+    setPurchaseComplete(true);
+    clearCart();
+  };
+
+  if (loading) {
+    return <p className="loading-message">Cargando carrito...</p>;
+  }
+  
+  if (purchaseComplete) {
+    return (
+      <p className="purchase-complete-message">
+        ¡Gracias por tu compra! Tu pedido ha sido procesado correctamente.
+      </p>
+    );
+  }
+  
   if (cart.length === 0) {
-    return <p>No hay productos en el carrito</p>;
+    return <p className="empty-cart-message">No hay productos en el carrito</p>;
   }
 
   return (
@@ -33,7 +60,7 @@ const Cart = () => {
         </button>
       </div>
       <div>
-        <CheckoutForm />
+        <CheckoutForm onPurchaseComplete={handlePurchaseComplete} />
       </div>
     </div>
   );

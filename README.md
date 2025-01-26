@@ -36,7 +36,7 @@ Este proyecto es una aplicación web desarrollada con **React** y **Vite** que s
 ## **Contacto**
 Desarrollado por [MaxGonzalezRoy](https://github.com/MaxGonzalezRoy).
 Proyecto (https://github.com/MaxGonzalezRoy/React_JS.git).
-Último commit: `"ProyectoFinal+Gonzalez"`
+Último commit: `"ProyectoFinal+GonzalezRoy"`
 
 
 
